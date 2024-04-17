@@ -16,8 +16,18 @@ class FournisseurController extends Controller
      */
     public function index()
     {
-        //
-    }
+         try{
+
+             return response()->json([
+               'status_code' =>200,
+               'status_message' => 'la liste des fournisseurs a été recuperé',
+               'data'=>Fournisseur::all()
+           ]);
+
+         } catch(Exception $e){
+            return response($e)->json($e);
+      }
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -27,12 +37,13 @@ class FournisseurController extends Controller
   {
     try {
         if (Auth::guard('user-api')->check()) {
-            $user = Auth::guard('user-api')->user();
+            // $user = Auth::guard('user-api')->user();
 
             $fournisseur = new Fournisseur();
             $fournisseur->nom = $request->nom;
             $fournisseur->contact = $request->contact;
             $fournisseur->adress = $request->adress;
+            
             $fournisseur->save();
             return response()->json([
                 'status_code' => 200,
@@ -82,13 +93,13 @@ class FournisseurController extends Controller
     {
         try {           
             if (Auth::guard('user-api')->check()) {
-                $user = Auth::guard('user-api')->user();
-    
-                // Vérifier si l'utilisateur est l'auteur du bien
+                // $user = Auth::guard('user-api')->user();
+                // Vérifier si l'utilisateur est l'auteur du fournisseur
                 $fournisseur = Fournisseur::findOrFail($id);
-                if ($fournisseur->user_id === $user->id)//
+                // dd($fournisseur);
+                // if ($fournisseur->user_id === $user->id)
                 // if ($annuaire->admin_id === $user->id && $user->role === 'admin') 
-                {
+                // {
                     $fournisseur->nom = $request->nom;
                     $fournisseur->contact = $request->contact;
                     $fournisseur->adress = $request->adress;
@@ -104,12 +115,13 @@ class FournisseurController extends Controller
                         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce fournisseur'
                     ]);
                 }
-            } else {
-                return response()->json([
-                    'status_code' => 422,
-                    'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification'
-                ]);
-            }
+            // } 
+            // else {
+            //     return response()->json([
+            //         'status_code' => 422,
+            //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification'
+            //     ]);
+            // }
         } catch (Exception $e) {
             return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
         }
@@ -118,8 +130,37 @@ class FournisseurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function supprimerFournisseur(Fournisseur $fournisseur)
+    { 
+        try {
+            if (Auth::guard('user-api')->check()) {
+                // $user = Auth::guard('user-api')->user();
+                //  dd($user);
+                // Vérifier si l'utilisateur est l'auteur du bien et a le rôle 'user'
+                // if ($bien->user_id === $user->id && $user->role === 'user') 
+                // if ($fournisseur->user_id === $user->id) 
+                // {
+                    $fournisseur->delete();
+    
+                    return response()->json([
+                        'status_code' => 200,
+                        'status_message' => 'Le fournisseur a été supprimé avec succes',
+                        'data' => $fournisseur
+                    ]);
+                // } else {
+                //     return response()->json([
+                //         'status_code' => 403,
+                //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression de ce fournisseur'
+                //     ]);
+                // }
+            } else {
+                return response()->json([
+                    'status_code' => 422,
+                    'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        }
     }
 }

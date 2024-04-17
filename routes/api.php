@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FournisseurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,12 @@ Route::post('userme',[Usercontroller::class,  'me']);
 
 // route pour la gestion des fournisseurs
 Route::post('addSupplier', [FournisseurController::class, 'create'])->name('addSupplier');
-Route::put('updateSupplier', [FournisseurController::class, 'update'])->name('updateSupplier');
-Route::delete('inscription', [FournisseurController::class, 'inscription'])->name('inscription');
-Route::get('inscription', [FournisseurController::class, 'inscription'])->name('inscription');
+Route::put('updateSupplier/{id}', [FournisseurController::class, 'update'])->name('updateSupplier');
+Route::delete('deleteSupplier/{id}', [FournisseurController::class, 'supprimerFournisseur'])->name('deleteSupplier');
+Route::get('getSupplier', [FournisseurController::class, 'index'])->name('getSupplier');
+
+// route pour la gestion des client
+Route::post('addCustommer', [ClientController::class, 'create'])->name('addCustommer');
+Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
+Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
+Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
