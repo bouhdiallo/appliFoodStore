@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FournisseurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,3 +27,9 @@ Route::post('connexion', [UserController::class, 'connexion'])->name('connexion'
 Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
 // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 Route::post('userme',[Usercontroller::class,  'me']);
+
+// route pour la gestion des fournisseurs
+Route::post('addSupplier', [FournisseurController::class, 'create'])->name('addSupplier');
+Route::put('updateSupplier', [FournisseurController::class, 'update'])->name('updateSupplier');
+Route::delete('inscription', [FournisseurController::class, 'inscription'])->name('inscription');
+Route::get('inscription', [FournisseurController::class, 'inscription'])->name('inscription');
