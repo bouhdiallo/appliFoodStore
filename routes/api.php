@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FactureController;
 use App\Http\Controllers\FournisseurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,9 @@ Route::post('addCustommer', [ClientController::class, 'create'])->name('addCusto
 Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
 Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
 Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
+
+// route pour la gestion des Facture
+Route::post('addAccount', [FactureController::class, 'create'])->name('addAccount');
+Route::put('updateAccount/{id}', [FactureController::class, 'update'])->name('updateAccount');
+Route::delete('deleteAccount/{id}', [FactureController::class, 'delete'])->name('deleteAccount');
+Route::get('getAccount', [FactureController::class, 'index'])->name('getAccount');
