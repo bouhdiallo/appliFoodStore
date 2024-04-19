@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Client;
+use App\Models\Produit;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->float('montant');
             $table->foreignIdFor(Client::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignIdFor(Produit::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

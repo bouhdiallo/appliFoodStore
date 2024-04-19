@@ -128,16 +128,12 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Client $client)
+    public function delete(Client $client, $id)
     { 
         try {
             if (Auth::guard('user-api')->check()) {
-                // $user = Auth::guard('user-api')->user();
-                //  dd($user);
-                // Vérifier si l'utilisateur est l'auteur du bien et a le rôle 'user'
-                // if ($bien->user_id === $user->id && $user->role === 'user') 
-                // if ($client->user_id === $user->id) 
-                // {
+                $client = Client::findOrFail($id);
+
                     $client->delete();
     
                     return response()->json([

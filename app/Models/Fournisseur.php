@@ -27,3 +27,4 @@ class Fournisseur extends Model
     }
     
 }
+

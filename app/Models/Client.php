@@ -19,3 +19,4 @@ class Client extends Model
         return $this->hasMany(Facture::class, 'client_id');
     }
 }
+

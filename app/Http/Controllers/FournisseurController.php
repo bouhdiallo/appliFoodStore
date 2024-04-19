@@ -130,16 +130,12 @@ class FournisseurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function supprimerFournisseur(Fournisseur $fournisseur)
+    public function supprimerFournisseur(Fournisseur $fournisseur, $id)
     { 
         try {
             if (Auth::guard('user-api')->check()) {
-                // $user = Auth::guard('user-api')->user();
-                //  dd($user);
-                // Vérifier si l'utilisateur est l'auteur du bien et a le rôle 'user'
-                // if ($bien->user_id === $user->id && $user->role === 'user') 
-                // if ($fournisseur->user_id === $user->id) 
-                // {
+                $fournisseur = Fournisseur::findOrFail($id);
+
                     $fournisseur->delete();
     
                     return response()->json([

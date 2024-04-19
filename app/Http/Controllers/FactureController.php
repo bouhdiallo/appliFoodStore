@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Dompdf\Options;
+use Dompdf\Dompdf;
 use App\Models\Facture;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateFactureRequest;
@@ -34,32 +37,34 @@ class FactureController extends Controller
      */
     public function create(CreateFactureRequest $request)
     {
-      try {
-          if (Auth::guard('user-api')->check()) {
-              // $user = Auth::guard('user-api')->user();
-  
-              $facture = new Facture();
-              $facture->date = $request->date;
-              $facture->montant = $request->montant;
-              $facture->client_id = $request->client_id;
-
-              
-              $facture->save();
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La facture a été ajouté avec succès',
-                  'data' => $facture
-              ]);
-          } else {
-              return response()->json([
-                  'status_code' => 401,
-                  'status_message' => 'Vous devez être authentifié pour créer une facture'
-              ]);
-          }
-      } catch (Exception $e) {
-          return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-      }
-  }
+        try {
+            if (Auth::guard('user-api')->check()) {
+                $facture = new Facture();
+                $facture->date = $request->date;
+                $facture->montant = $request->montant;
+                $facture->client_id = $request->client_id;
+                
+                $facture->save();
+    
+                // Associer les produits à la facture en utilisant la méthode sync
+                $facture->produits()->sync($request->produits);
+                // dd($request->produits);
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'La facture a été ajoutée avec succès',
+                    'data' => $facture
+                ]);
+            } else {
+                return response()->json([
+                    'status_code' => 401,
+                    'status_message' => 'Vous devez être authentifié pour créer une facture'
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        }
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -119,11 +124,12 @@ class FactureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Facture $facture)
+    public function delete(Facture $facture, $id)
     { 
         try {
             if (Auth::guard('user-api')->check()) {
-        
+                $facture = Facture::findOrFail($id);
+
                     $facture->delete();
     
                     return response()->json([
@@ -147,4 +153,51 @@ class FactureController extends Controller
             return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
         }
     }
+                   /**
+     * Imprime la facture au format PDF.
+     */
+ 
+public function printInvoice($id)
+{
+    try {
+        // Récupérer la facture avec les détails du client et les produits associés
+        $facture = Facture::with(['client', 'produits'])->findOrFail($id);
+        dd($facture);
+        // Créer le contenu HTML du PDF
+        $html = '<h1>Facture</h1>';
+        $html .= '<p>Nom du client: ' . $facture->client->nom_client . '</p>';
+        $html .= '<p>Contact du client: ' . $facture->client->contact . '</p>';
+        $html .= '<p>Adress du client: ' . $facture->client->adress . '</p>';
+        $html .= '<p>Date de la facture: ' . $facture->date . '</p>';
+        $html .= '<h2>Produits:</h2>';
+        $html .= '<ul>';
+        dd($facture->produits);
+        foreach ($facture->produits as $produit) {
+
+            $html .= '<li>' . $produit->nom_produit . ' - ' . $produit->prix . '</li>';
+        }
+        $html .= '</ul>';
+
+        // Instancier Dompdf
+        $dompdf = new Dompdf();
+
+        // Charger le contenu HTML dans Dompdf
+        $dompdf->loadHtml($html);
+
+        // Rendre le PDF
+        $dompdf->render();
+
+        // Récupérer le contenu du PDF
+        $pdfContent = $dompdf->output();
+
+        // Retourner le PDF en réponse
+        return response($pdfContent)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="facture_' . $id . '.pdf"');
+
+    } catch (Exception $e) {
+        // Gérer les erreurs, par exemple si la facture n'est pas trouvée
+        return response()->json(['status_code' => 404, 'error' => 'Facture non trouvée']);
+    }
+}
 }
