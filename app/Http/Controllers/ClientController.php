@@ -14,19 +14,28 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function navigation(){
+        return view('layout.nav');
+    }
+
+
     public function index()
     {
-         try{
 
-             return response()->json([
-               'status_code' =>200,
-               'status_message' => 'la liste des fournisseurs a été recuperé',
-               'data'=>Client::all()
-           ]);
 
-         } catch(Exception $e){
-            return response($e)->json($e);
-      }
+        return view('Clients.ajoutClient');
+    //      try{
+
+    //          return response()->json([
+    //            'status_code' =>200,
+    //            'status_message' => 'la liste des fournisseurs a été recuperé',
+    //            'data'=>Client::all()
+    //        ]);
+
+    //      } catch(Exception $e){
+    //         return response($e)->json($e);
+    //   }
     } 
 
     /**
