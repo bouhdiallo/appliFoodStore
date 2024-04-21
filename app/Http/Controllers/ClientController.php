@@ -15,16 +15,23 @@ class ClientController extends Controller
      * Display a listing of the resource.
      */
 
+     
+     public function index()
+     {
+        return view('Clients.ajoutClient');
+    }
+
+
      public function navigation(){
         return view('layout.nav');
     }
 
 
-    public function index()
-    {
+    // public function index()
+    // {
 
 
-        return view('Clients.ajoutClient');
+    //     return view('Clients.ajoutClient');
     //      try{
 
     //          return response()->json([
@@ -36,15 +43,15 @@ class ClientController extends Controller
     //      } catch(Exception $e){
     //         return response($e)->json($e);
     //   }
-    } 
+    // } 
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(CreateClientRequest $request)
     {
-      try {
-          if (Auth::guard('user-api')->check()) {
+    //   try {
+    //       if (Auth::guard('user-api')->check()) {
               // $user = Auth::guard('user-api')->user();
   
               $client = new Client();
@@ -53,20 +60,21 @@ class ClientController extends Controller
               $client->adress = $request->adress;
               
               $client->save();
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'Le client a été ajouté avec succès',
-                  'data' => $client
-              ]);
-          } else {
-              return response()->json([
-                  'status_code' => 401,
-                  'status_message' => 'Vous devez être authentifié pour créer un client'
-              ]);
-          }
-      } catch (Exception $e) {
-          return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-      }
+                return back();
+    //           return response()->json([
+    //               'status_code' => 200,
+    //               'status_message' => 'Le client a été ajouté avec succès',
+    //               'data' => $client
+    //           ]);
+    //       } else {
+    //           return response()->json([
+    //               'status_code' => 401,
+    //               'status_message' => 'Vous devez être authentifié pour créer un client'
+    //           ]);
+    //       }
+    //   } catch (Exception $e) {
+    //       return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+    //   }
   }
 
     /**
@@ -80,10 +88,10 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -165,5 +173,15 @@ class ClientController extends Controller
         } catch (Exception $e) {
             return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
         }
+    }
+
+    public function show()
+    {
+// return view('Clients.listerClient');
+       
+             $client = Client::all();
+            // $categorie = Categorie::where('id', '=' ,$article->categorie_id)->first();
+            return view ('Clients.listerClient',['clients' => $client]);
+        
     }
 }

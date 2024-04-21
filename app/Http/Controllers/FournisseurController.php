@@ -16,17 +16,8 @@ class FournisseurController extends Controller
      */
     public function index()
     {
-         try{
-
-             return response()->json([
-               'status_code' =>200,
-               'status_message' => 'la liste des fournisseurs a été recuperé',
-               'data'=>Fournisseur::all()
-           ]);
-
-         } catch(Exception $e){
-            return response($e)->json($e);
-      }
+         return view('Fournisseurs.ajoutFourni');
+        
     }   
 
     /**
@@ -35,8 +26,8 @@ class FournisseurController extends Controller
     
     public function create(CreateFournisseurRequest $request)
   {
-    try {
-        if (Auth::guard('user-api')->check()) {
+    // try {
+    //     if (Auth::guard('user-api')->check()) {
             // $user = Auth::guard('user-api')->user();
 
             $fournisseur = new Fournisseur();
@@ -45,20 +36,21 @@ class FournisseurController extends Controller
             $fournisseur->adress = $request->adress;
             
             $fournisseur->save();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Le fournisseur a été ajouté avec succès',
-                'data' => $fournisseur
-            ]);
-        } else {
-            return response()->json([
-                'status_code' => 401,
-                'status_message' => 'Vous devez être authentifié pour créer un fournisseur'
-            ]);
-        }
-    } catch (Exception $e) {
-        return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-    }
+            return back();
+            //  response()->json([
+    //             'status_code' => 200,
+    //             'status_message' => 'Le fournisseur a été ajouté avec succès',
+    //             'data' => $fournisseur
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             'status_code' => 401,
+    //             'status_message' => 'Vous devez être authentifié pour créer un fournisseur'
+    //         ]);
+    //     }
+    // } catch (Exception $e) {
+    //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+    // }
 }
     
 
@@ -73,9 +65,14 @@ class FournisseurController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+// return view('Clients.listerClient');
+       
+             $fournisseurs = Fournisseur::all();
+            // $categorie = Categorie::where('id', '=' ,$article->categorie_id)->first();
+            return view ('Fournisseurs.listerFourni',['fournisseurs' => $fournisseurs]);
+        
     }
 
     /**

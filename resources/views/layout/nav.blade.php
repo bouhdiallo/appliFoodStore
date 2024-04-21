@@ -36,8 +36,8 @@
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fournisseurs</font></font></a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Fournisseurs</font></font></a>
-                          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des fournisseurs</font></font></a>
+                          <a class="dropdown-item" href="/formSupplier"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Fournisseurs</font></font></a>
+                          <a class="dropdown-item" href="/getListSupplier"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des fournisseurs</font></font></a>
                           {{-- <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelque chose d'autre ici</font></font></a> --}}
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lien séparé</font></font></a>
@@ -45,14 +45,14 @@
                       </li>
 
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Clients</font></font></a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Client</font></font></a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/index"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Clients</font></font></a>
-                          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des Clients</font></font></a>
+                          <a class="dropdown-item" href="/formCustomer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Client</font></font></a>
+                          <a class="dropdown-item" href="/getListCustomer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des Clients</font></font></a>
                           {{-- <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelque chose d'autre ici</font></font></a> --}}
-                          <div class="dropdown-divider"></div>
+                          {{-- <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lien séparé</font></font></a>
-                        </div>
+                        </div> --}}
                       </li>
 
                     </ul>

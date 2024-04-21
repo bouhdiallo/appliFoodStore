@@ -34,24 +34,29 @@ Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconn
 Route::post('userme',[Usercontroller::class,  'me']);
 
 // route pour la gestion des clients
-Route::get('abc', [ClientController::class, 'index'])->name('abc');
-Route::post('addCustommer', [ClientController::class, 'create'])->name('addCustommer');
-Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
-Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
-Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
+// Route::get('abc', [ClientController::class, 'index'])->name('abc');
+// Route::post('addCustommer', [ClientController::class, 'create'])->name('addCustommer');
+// Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
+// Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
+// Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
 
 
 // route pour la gestion des fournisseurs
+Route::get('formSupplier', [FournisseurController::class, 'index'])->name('formSupplier');
 Route::post('addSupplier', [FournisseurController::class, 'create'])->name('addSupplier');
+
 Route::put('updateSupplier/{id}', [FournisseurController::class, 'update'])->name('updateSupplier');
 Route::delete('deleteSupplier/{id}', [FournisseurController::class, 'supprimerFournisseur'])->name('deleteSupplier');
-Route::get('getSupplier', [FournisseurController::class, 'index'])->name('getSupplier');
+Route::get('getListSupplier', [FournisseurController::class, 'show'])->name('getListSupplier');
 
 // route pour la gestion des clients
+
+Route::get('formCustomer', [ClientController::class, 'index'])->name('formCustomer');
 Route::post('addCustommer', [ClientController::class, 'create'])->name('addCustommer');
 Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
 Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
-Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
+
+Route::get('getListCustomer', [ClientController::class, 'show'])->name('getListCustomer');
 
 // route pour la gestion des Factures
 Route::post('addAccount', [FactureController::class, 'create'])->name('addAccount');
@@ -62,6 +67,8 @@ Route::get('getAccount', [FactureController::class, 'index'])->name('getAccount'
 Route::get('invoices/{id}/print', [FactureController::class, 'printInvoice'])->name('invoices.print');
 
 // route pour la gestion des Produit
+Route::get('formProduct', [ProduitController::class, 'index'])->name('formProduct');
+
 Route::post('addProduct', [ProduitController::class, 'create'])->name('addProduct');
 Route::put('updateProduct/{id}', [ProduitController::class, 'update'])->name('updateProduct');
 Route::delete('deleteProduct/{id}', [ProduitController::class, 'delete'])->name('deleteProduct');

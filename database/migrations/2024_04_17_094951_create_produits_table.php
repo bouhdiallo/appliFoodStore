@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom_produit');
             $table->float('prix');
+            $table->string('image');
             $table->string('description');
             $table->integer('qte_en_stock');
             $table->foreignIdFor(Fournisseur::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');

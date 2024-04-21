@@ -16,13 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('facture_id');
             $table->unsignedBigInteger('produit_id');
             $table->timestamps();
-
+    
             $table->foreign('facture_id')->references('id')->on('factures')->onDelete('cascade');
             $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
-            $table->primary(['facture_id', 'produit_id']);
-
+            // Vous n'avez pas besoin de définir une clé primaire supplémentaire car 'id()' crée automatiquement une clé primaire auto-incrémentée.
         });
     }
+    
 
     /**
      * Reverse the migrations.
