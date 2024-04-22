@@ -59,17 +59,31 @@ Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name(
 Route::get('getListCustomer', [ClientController::class, 'show'])->name('getListCustomer');
 
 // route pour la gestion des Factures
+Route::get('formAccount', [FactureController::class, 'index'])->name('formAccount');
 Route::post('addAccount', [FactureController::class, 'create'])->name('addAccount');
+
 Route::put('updateAccount/{id}', [FactureController::class, 'update'])->name('updateAccount');
 Route::delete('deleteAccount/{id}', [FactureController::class, 'delete'])->name('deleteAccount');
-Route::get('getAccount', [FactureController::class, 'index'])->name('getAccount');
+
+// Route::get('getClientFacture/{client_id}', [FactureController::class, 'show'])->name('getClientFacture');
+// Appel de la fonction show() avec les deux arguments
+Route::get('/show/{client_id}/{produit_id}', [FactureController::class, 'show'])->name('getClientFacture');
+
+
+// Route::get('getListAccount', [FactureController::class, 'show'])->name('getListAccount'); 
 // impression de la facture
-Route::get('invoices/{id}/print', [FactureController::class, 'printInvoice'])->name('invoices.print');
+Route::get('/invoice/{id}', [FactureController::class, 'printInvoice'])->name('invoices.print');
+
+
+// Route pour afficher la facture au format PDF
+// Route::get('/invoice/{id}', [InvoiceController::class, 'showInvoice'])->name('invoice.show');
 
 // route pour la gestion des Produit
 Route::get('formProduct', [ProduitController::class, 'index'])->name('formProduct');
 
 Route::post('addProduct', [ProduitController::class, 'create'])->name('addProduct');
+
 Route::put('updateProduct/{id}', [ProduitController::class, 'update'])->name('updateProduct');
 Route::delete('deleteProduct/{id}', [ProduitController::class, 'delete'])->name('deleteProduct');
-Route::get('getProduct', [ProduitController::class, 'index'])->name('getProduct');
+
+Route::get('getListProduct', [ProduitController::class, 'show'])->name('getListProduct');

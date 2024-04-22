@@ -24,8 +24,15 @@
                           </font></font><span class="visually-hidden"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">(actuel)</font></font></span>
                         </a>
                       </li> --}}
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produit</font></font></a>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produit</font></font></a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/formProduct"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Produit</font></font></a>
+                          <a class="dropdown-item" href="/getListProduct"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des Produit</font></font></a>
+                          {{-- <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelque chose d'autre ici</font></font></a> --}}
+                          {{-- <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lien séparé</font></font></a>
+                        </div> --}}
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facture</font></font></a>
@@ -145,16 +152,16 @@
               Products
             </h6>
             <p>
-              <a href="#!" class="text-reset">Angular</a>
+              <a href="/getListProduct" class="text-reset">Liste de Produits</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">React</a>
+              <a href="/getListSupplier" class="text-reset">Liste des Fournisseurs</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Vue</a>
+              <a href="/getListCustomer" class="text-reset">Liste des Clients</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Laravel</a>
+              <a href="getListAccount" class="text-reset">Liste des Factures</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -201,7 +208,7 @@
   
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2021 Copyright:
+      © 2024 Copyright:
       <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
     <!-- Copyright -->

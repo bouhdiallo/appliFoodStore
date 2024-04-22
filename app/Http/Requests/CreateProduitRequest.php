@@ -27,6 +27,7 @@ class CreateProduitRequest extends FormRequest
              [
                      'nom_produit' => 'required|string',
                      'prix' => 'required|numeric',
+                     'image' => 'required',
                      'description' => 'required',
                      'qte_en_stock' => 'required'
                 ];
@@ -46,6 +47,7 @@ class CreateProduitRequest extends FormRequest
                 return [
                     'nom_produit.required' => 'un nom pour le produit doit etre fourni',
                     'prix.required' => 'un prix doit etre fourni',
+                    'image.required' => 'une image doit etre fourni',
                     'description.required' => 'une description doit etre fourni',
                     'qte_en_stock.required' => 'une qte_en_stock doit etre fourni'
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateProduitRequest;
 use App\Http\Requests\UpdateProduitRequest;
+use App\Models\Fournisseur;
 
 class ProduitController extends Controller
 {
@@ -16,39 +17,50 @@ class ProduitController extends Controller
      */
     public function index()
     {
-         return view('Produits.ajoutProduit');
+        $fournisseur= Fournisseur::all();
+         return view('Produits.ajoutProduit', ['fournisseurs' => $fournisseur]); 
+
+     
     } 
 
     /**
      * Show the form for creating a new resource.
      */
+
     public function create(CreateProduitRequest $request)
     {
-      try {
-          if (Auth::guard('user-api')->check()) {
+    //   try {
+        //   if (Auth::guard('user-api')->check()) {
               // $user = Auth::guard('user-api')->user();
-  
               $produit = new Produit();
               $produit->nom_produit = $request->nom_produit;
               $produit->prix = $request->prix;
+
+              if ($request->file('image')) {
+                $file = $request->file('image');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('/images'), $filename);
+                $produit->image = $filename;  
+            }
               $produit->description = $request->description;
               $produit->qte_en_stock = $request->qte_en_stock;
 
               $produit->save();
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La produit a été ajouté avec succès',
-                  'data' => $produit
-              ]);
-          } else {
-              return response()->json([
-                  'status_code' => 401,
-                  'status_message' => 'Vous devez être authentifié pour créer une produit'
-              ]);
-          }
-      } catch (Exception $e) {
-          return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-      }
+              return back();
+    //           return response()->json([
+    //               'status_code' => 200,
+    //               'status_message' => 'La produit a été ajouté avec succès',
+    //               'data' => $produit
+    //           ]);
+    //       } else {
+    //           return response()->json([
+    //               'status_code' => 401,
+    //               'status_message' => 'Vous devez être authentifié pour créer une produit'
+    //           ]);
+    //       }
+    //   } catch (Exception $e) {
+    //       return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+    //   }
   }
 
     /**
@@ -62,10 +74,14 @@ class ProduitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+       
+             $produits = Produit::all();
+            return view ('Produits.listerProduit',['produits' => $produits]);
+        
     }
+
 
     /**
      * Show the form for editing the specified resource.

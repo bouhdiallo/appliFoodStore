@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Facture;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produit extends Model
 {
@@ -12,6 +13,7 @@ class Produit extends Model
     protected $fillable = [
         'nom_produit',
         'prix',
+        'image',
         'description',
         'qte_en_stock',
     ];
