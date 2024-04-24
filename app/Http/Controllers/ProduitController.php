@@ -46,7 +46,7 @@ class ProduitController extends Controller
               $produit->qte_en_stock = $request->qte_en_stock;
 
               $produit->save();
-              return back();
+              return back()->with('status', 'le produit est ajouter avec success');
     //           return response()->json([
     //               'status_code' => 200,
     //               'status_message' => 'La produit a été ajouté avec succès',
@@ -77,7 +77,9 @@ class ProduitController extends Controller
     public function show()
     {
        
-             $produits = Produit::all();
+            //  $produits = Produit::paginate(3);
+             $produits = Produit::paginate(5);
+
             return view ('Produits.listerProduit',['produits' => $produits]);
         
     }
@@ -94,10 +96,20 @@ class ProduitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProduitRequest $request, $id)
+
+    public function update($id) 
+     {
+        $produit =  Produit::findOrFail($id);
+        $fournisseurs = Fournisseur::all(); // Assurez-vous d'obtenir les fournisseurs ici
+        return view('Produits.modifProduit', ['produit'=>$produit, 'fournisseurs' =>$fournisseurs]);
+     }
+
+   
+
+    public function updateProcess(UpdateProduitRequest $request, $id)
     {
-        try {           
-            if (Auth::guard('user-api')->check()) {
+        // try {           
+        //     if (Auth::guard('user-api')->check()) {
                 
                 $produit =  Produit::findOrFail($id);
                 
@@ -107,21 +119,22 @@ class ProduitController extends Controller
                 $produit->qte_en_stock = $request->qte_en_stock;
   
                     $produit->update();
-                    return response()->json([
-                        'status_code' => 200,
-                        'status_message' => 'Le produit a été modifié',
-                        'data' => $produit
-                    ]);
-                } else {
-                    return response()->json([
-                        'status_code' => 403,
-                        'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce produit'
-                    ]);
-                }
+                    return back()->with('status', 'le produit a été modifié avec success');
+                    // return response()->json([
+        //                 'status_code' => 200,
+        //                 'status_message' => 'Le produit a été modifié',
+        //                 'data' => $produit
+        //             ]);
+        //         } else {
+        //             return response()->json([
+        //                 'status_code' => 403,
+        //                 'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce produit'
+        //             ]);
+        //         }
            
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
+        // } catch (Exception $e) {
+        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        // }
     }
 
     /**
@@ -129,27 +142,28 @@ class ProduitController extends Controller
      */
     public function delete(Produit $produit, $id)
     { 
-        try {
-            if (Auth::guard('user-api')->check()) {
+        // try {
+        //     if (Auth::guard('user-api')->check()) {
                 $produit = Produit::findOrFail($id);
 
                 $produit->delete();
+                return back();
         
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Le produit a été supprimé avec succès',
-                    'data' => $produit
+        //         return response()->json([
+        //             'status_code' => 200,
+        //             'status_message' => 'Le produit a été supprimé avec succès',
+        //             'data' => $produit
 
-                ]);
-            } else {
-                return response()->json([
-                    'status_code' => 422,
-                    'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'status_code' => 422,
+        //             'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
+        //         ]);
+        //     }
+        // } catch (Exception $e) {
+        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        // }
     }
     
 

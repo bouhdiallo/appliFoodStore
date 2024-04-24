@@ -5,6 +5,8 @@
 
 
 <form action="{{route ('addAccount')}}"  method="POST">
+
+  
     @csrf
     <fieldset>
       <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Légende</font></font></legend>

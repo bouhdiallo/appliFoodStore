@@ -35,6 +35,11 @@ return response()->json(['error' => $e->getMessage()]);
     /**
      * Show the form for creating a new resource.
      */
+    public function abc()
+    {
+        return view('Admin.connexion');
+    }
+
     public function connexion(Request $request)
     {
          // credentiels contient les infos d'identification extraites de la requête 

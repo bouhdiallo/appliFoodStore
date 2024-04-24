@@ -36,7 +36,8 @@ class FournisseurController extends Controller
             $fournisseur->adress = $request->adress;
             
             $fournisseur->save();
-            return back();
+
+            return back()->with('status', 'le fournisseur a été ajouter avec success');
             //  response()->json([
     //             'status_code' => 200,
     //             'status_message' => 'Le fournisseur a été ajouté avec succès',
@@ -68,8 +69,8 @@ class FournisseurController extends Controller
     public function show()
     {
 // return view('Clients.listerClient');
-       
-             $fournisseurs = Fournisseur::all();
+
+             $fournisseurs = Fournisseur::paginate(5);
             // $categorie = Categorie::where('id', '=' ,$article->categorie_id)->first();
             return view ('Fournisseurs.listerFourni',['fournisseurs' => $fournisseurs]);
         
@@ -86,13 +87,25 @@ class FournisseurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFournisseurRequest $request, $id)
+   
+
+        public function update($id) 
+     {
+        $fournisseur =  Fournisseur::findOrFail($id);
+        return view('Fournisseurs.modifFourni', ['fournisseur'=>$fournisseur]);
+     }
+
+
+
+
+
+    public function updateProcess(UpdateFournisseurRequest $request, $id)
     {
-        try {           
-            if (Auth::guard('user-api')->check()) {
+        // try {           
+        //     if (Auth::guard('user-api')->check()) {
                 // $user = Auth::guard('user-api')->user();
                 // Vérifier si l'utilisateur est l'auteur du fournisseur
-                $fournisseur = Fournisseur::findOrFail($id);
+                $fournisseur = Fournisseur::findOrFail($request->id);
                 // dd($fournisseur);
                 // if ($fournisseur->user_id === $user->id)
                 // if ($annuaire->admin_id === $user->id && $user->role === 'admin') 
@@ -101,17 +114,18 @@ class FournisseurController extends Controller
                     $fournisseur->contact = $request->contact;
                     $fournisseur->adress = $request->adress;
                     $fournisseur->update();
-                    return response()->json([
-                        'status_code' => 200,
-                        'status_message' => 'Le fournisseur a été modifié',
-                        'data' => $fournisseur
-                    ]);
-                } else {
-                    return response()->json([
-                        'status_code' => 403,
-                        'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce fournisseur'
-                    ]);
-                }
+                    return back()->with('status', 'les données du fournisseurs ont été modifier avec success');
+                    // return response()->json([
+                    //     'status_code' => 200,
+                    //     'status_message' => 'Le fournisseur a été modifié',
+                    //     'data' => $fournisseur
+                    // ]);
+                // } else {
+                //     return response()->json([
+                //         'status_code' => 403,
+                //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce fournisseur'
+                //     ]);
+                // }
             // } 
             // else {
             //     return response()->json([
@@ -119,41 +133,42 @@ class FournisseurController extends Controller
             //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification'
             //     ]);
             // }
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
+        // } catch (Exception $e) {
+        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        // }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function supprimerFournisseur(Fournisseur $fournisseur, $id)
+    public function delete(Fournisseur $fournisseur, $id)
     { 
-        try {
-            if (Auth::guard('user-api')->check()) {
+        // try {
+        //     if (Auth::guard('user-api')->check()) {
                 $fournisseur = Fournisseur::findOrFail($id);
 
                     $fournisseur->delete();
+                    return back()->with('status', 'le fournissuer est supprimé avec success');
     
-                    return response()->json([
-                        'status_code' => 200,
-                        'status_message' => 'Le fournisseur a été supprimé avec succes',
-                        'data' => $fournisseur
-                    ]);
+                    // return response()->json([
+                    //     'status_code' => 200,
+                    //     'status_message' => 'Le fournisseur a été supprimé avec succes',
+                    //     'data' => $fournisseur
+                    // ]);
                 // } else {
                 //     return response()->json([
                 //         'status_code' => 403,
                 //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression de ce fournisseur'
                 //     ]);
                 // }
-            } else {
-                return response()->json([
-                    'status_code' => 422,
-                    'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
-    }
+    //         } else {
+    //             return response()->json([
+    //                 'status_code' => 422,
+    //                 'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
+    //             ]);
+    //         }
+    //     } catch (Exception $e) {
+    //         return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+    //     }
+     }
 }

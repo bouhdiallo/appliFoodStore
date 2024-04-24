@@ -22,12 +22,13 @@ use App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Route::get('/show/{client_id}/{produit_id}', [FactureController::class, 'show'])->name('getClientFacture');
 
 
 
-// Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
-// Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
-// Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
+//  Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
+//  Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
+//  Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
 // // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 // Route::post('userme',[Usercontroller::class,  'me']);
 

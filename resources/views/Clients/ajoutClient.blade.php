@@ -2,7 +2,21 @@
 @section('content')
 
 
+@if (session('status'))
+<div class="alert alert-success">
 
+  {{session('status')}}
+</div>
+@endif
+
+<ul>
+ @foreach ($errors->all() as $error)
+
+ <li class="alert alert-danger"> {{ $error }} </li>
+
+ @endforeach
+
+</ul>
 
 <form action="{{route ('addCustommer')}}"  method="POST">
     @csrf
@@ -32,13 +46,5 @@
     </fieldset>
     <button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soumettre</font></font></button>
   </fieldset>
-      
-      
-      
-      
-  
-      
-      
-      
   </form>
 @endsection()

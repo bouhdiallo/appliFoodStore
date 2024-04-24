@@ -136,7 +136,7 @@
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <!-- Content -->
             <h6 class="text-uppercase fw-bold mb-4">
-              <i class="fas fa-gem me-3"></i>Company name
+              <i class="fas fa-gem me-3"></i>American food store
             </h6>
             <p>
               Here you can use rows and columns to organize your footer content. Lorem ipsum
@@ -149,7 +149,7 @@
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">
-              Products
+              Liste des fontionnalités
             </h6>
             <p>
               <a href="/getListProduct" class="text-reset">Liste de Produits</a>
@@ -208,8 +208,8 @@
   
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2024 Copyright:
-      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      American Food Store © 2024 Copyrights by Carree Marketing. Tous droits reservés
+      {{-- <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a> --}}
     </div>
     <!-- Copyright -->
   </footer>

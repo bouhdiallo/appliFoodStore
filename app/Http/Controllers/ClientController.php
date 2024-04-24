@@ -60,7 +60,7 @@ class ClientController extends Controller
               $client->adress = $request->adress;
               
               $client->save();
-                return back();
+                return back()->with('status', 'le client est ajouté avec success');
     //           return response()->json([
     //               'status_code' => 200,
     //               'status_message' => 'Le client a été ajouté avec succès',
@@ -104,13 +104,21 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClientRequest $request, $id)
+
+     
+     public function update($id) 
+     {
+        $client =  Client::findOrFail($id);
+        return view('Clients.modifClient', ['client'=>$client]);
+     }
+
+    public function updateProcess(UpdateClientRequest $request, $id)
     {
-        try {           
-            if (Auth::guard('user-api')->check()) {
+        // try {           
+            // if (Auth::guard('user-api')->check()) {
                 // $user = Auth::guard('user-api')->user();
                 // Vérifier si l'utilisateur est l'auteur du client
-                $client =  Client::findOrFail($id);
+                $client =  Client::findOrFail($request->id);
                 // dd($client);
                 // if ($client->user_id === $user->id)
                 // if ($annuaire->admin_id === $user->id && $user->role === 'admin') 
@@ -118,18 +126,21 @@ class ClientController extends Controller
                     $client->nom_client = $request->nom_client;
                     $client->contact = $request->contact;
                     $client->adress = $request->adress;
+                    // dd($client);
                     $client->update();
-                    return response()->json([
-                        'status_code' => 200,
-                        'status_message' => 'Le client a été modifié',
-                        'data' => $client
-                    ]);
-                } else {
-                    return response()->json([
-                        'status_code' => 403,
-                        'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce client'
-                    ]);
-                }
+                    return back()->with('status', 'les donnéees du client ont été modifier avec success');
+
+                //     return response()->json([
+                //         'status_code' => 200,
+                //         'status_message' => 'Le client a été modifié',
+                //         'data' => $client
+                //     ]);
+                // } else {
+                //     return response()->json([
+                //         'status_code' => 403,
+                //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification sur ce client'
+                //     ]);
+                // }
             // } 
             // else {
             //     return response()->json([
@@ -137,50 +148,51 @@ class ClientController extends Controller
             //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer une modification'
             //     ]);
             // }
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
+        // } catch (Exception $e) {
+        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        // }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(Client $client, $id)
+    // public function delete(Client $client, $id)
+    public function delete($id)
+
     { 
-        try {
-            if (Auth::guard('user-api')->check()) {
+        // try {
+        //     if (Auth::guard('user-api')->check()) {
                 $client = Client::findOrFail($id);
 
                     $client->delete();
-    
-                    return response()->json([
-                        'status_code' => 200,
-                        'status_message' => 'Le client a été supprimé avec succes',
-                        'data' => $client
-                    ]);
+                    // return redirect('/')->with('status', 'le client est supprimé avec succes');
+                    return back()->with('status', 'le client est supprimé avec success');
+                    // return response()->json([
+                    //     'status_code' => 200,
+                    //     'status_message' => 'Le client a été supprimé avec succes',
+                    //     'data' => $client
+                    // ]);
                 // } else {
                 //     return response()->json([
                 //         'status_code' => 403,
                 //         'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression de ce client'
                 //     ]);
                 // }
-            } else {
-                return response()->json([
-                    'status_code' => 422,
-                    'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        }
+        //     } else {
+        //         return response()->json([
+        //             'status_code' => 422,
+        //             'status_message' => 'Vous n\'êtes pas autorisé à effectuer la suppression, veuillez vous connecter'
+        //         ]);
+        //     }
+        // } catch (Exception $e) {
+        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
+        // }
     }
 
     public function show()
     {
-// return view('Clients.listerClient');
        
-             $client = Client::all();
-            // $categorie = Categorie::where('id', '=' ,$article->categorie_id)->first();
+            $client = Client::paginate(5);
             return view ('Clients.listerClient',['clients' => $client]);
         
     }

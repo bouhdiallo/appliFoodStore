@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Facture;
 use App\Models\Produit;
 use Illuminate\Http\Request;
+use App\Models\FactureProduit;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateFactureRequest;
 use App\Http\Requests\UpdateFactureRequest;
@@ -39,7 +40,10 @@ class FactureController extends Controller
                 $facture->save();
     
                 // Associer les produits à la facture en utilisant la méthode sync
+
                 $facture->produits()->sync($request->produits);
+
+                // $facture->produits()->sync($request->produits);
 
                 return back();
                 // dd($request->produits);
@@ -73,28 +77,36 @@ class FactureController extends Controller
      */
 
      // les factures
-    public function show($client_id, $produit_id)
-    {
+    // public function show($client_id, $produit_id)
+    // {
       
+
+    //     $factures = FactureProduit::with('produits', 'facture');
             // Récupérer le client correspondant à l'ID    
-            $client = Client::findOrFail($client_id);
-        
+            // $client = Client::findOrFail($client_id);
+
             // Récupérer le produit correspondant à l'ID
-            $produit= Produit::findOrFail($produit_id);
+            // $produit= Produit::findOrFail($produit_id);
         
             // Récupérer les factures associées au client et au produit
-            $facturesClient = $client->factures()->get();
-            $facturesProduit = $produit->factures()->get();
-        
+            // $facturesClient = $client->factures()->get();
+
+            // $facturesProduit = $produit->factures()->get();
+
             // Combiner les collections de factures
-            $factures = $facturesClient->merge($facturesProduit);
+            // $factures = $facturesClient->merge($facturesProduit);
         
-            return view('Factures.listerFacture', ['factures' => $factures]);
-        
-        
+    //         return view('Factures.listerFacture', ['factures' => $factures]);   
+    // }
+
+
+    public function show()
+    {
+        $factures = Facture::all();
+        // dd($factures);
+
+        return view('Factures.listerFacture', ['factures'=>$factures]);
     }
-
-
    
     
    

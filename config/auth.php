@@ -45,6 +45,14 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'caissiere-api' => [
+            'driver' => 'jwt',
+            'provider' => 'caissieres',
+        ],
+        'superAdmin-api' => [
+            'driver' => 'jwt',
+            'provider' => 'superAdmins',
+        ],
     ],
 
     /*
@@ -68,6 +76,16 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'caissieres' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Caissiere::class,
+        ],
+
+        'superAdmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SuperAdmin::class,
         ],
 
         // 'users' => [

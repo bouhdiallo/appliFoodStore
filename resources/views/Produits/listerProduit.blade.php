@@ -3,7 +3,7 @@
 
 <div class="row">
     @foreach($produits as $produit)
-    <div class="col-md-4 mb-4">
+    <div class="col-md-2 mb-2">
         <div class="card">
            
                 <h5 class="card-title">{{ $produit->nom_produit }}</h5>
@@ -23,13 +23,16 @@
             </ul>
             <div class="card-body">
                 <!-- Liens supplémentaires si nécessaire -->
-                <a href="#" class="btn btn-danger">Supprimer</a>
-                <a href="" class="btn btn-info">MODIFIER</a>
+                <a href="deleteProduct/{{ $produit->id }}" class="btn btn-danger">Supprimer</a>
+                <a href="updateProduct/{{ $produit->id }}" class="btn btn-info">MODIFIER</a>
 
             </div>
         </div>
     </div>
     @endforeach
+
 </div>
+{{$produits->links()}}
+
 
 @endsection
