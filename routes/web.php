@@ -19,18 +19,29 @@ use App\Http\Controllers\FournisseurController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Admin.connexion');
 });
- 
+ //Route pour afficher le nouveau dashboard
+ Route::get('dash', [ClientController::class, 'dashboard'])->name('dash');
+
+
+
+ //Route page d'accueil des utilisateurs(superAdmin, user et caissiere)
+Route::get('caissiere', [FactureController::class, 'caissiereAccueil'])->name('caissiere');
+Route::get('user', [ClientController::class, 'userAccueil'])->name('user');
+Route::get('superAdmin', [ClientController::class, 'superAdminAccueil'])->name('superAdmin');
+
+
+
 // route pour afficher la page nav
 Route::get('index', [ClientController::class, 'navigation'])->name('index');
 
 
 //Route pour l'authentification client inscription et connexion.
-Route::get('test', [UserController::class, 'abc'])->name('test');
+Route::get('formConnect', [UserController::class, 'abc'])->name('formConnect');
 Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
 Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
-Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
+Route::post('deconnect', [Usercontroller::class, 'deconnexion'])->name('deconnect');
 // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 Route::post('userme',[Usercontroller::class,  'me']);
 
@@ -75,8 +86,13 @@ Route::put('updateAccount/{id}', [FactureController::class, 'update'])->name('up
 Route::delete('deleteAccount/{id}', [FactureController::class, 'delete'])->name('deleteAccount');
 
 // Route::get('getClientFacture/{client_id}', [FactureController::class, 'show'])->name('getClientFacture');
-// Appel de la fonction show() avec les deux arguments
-Route::get('/show/{client_id}/{produit_id}', [FactureController::class, 'show'])->name('getClientFacture');
+
+// Appel de la fonction show() avec les deux arguments pour recuper la liste des factures pour un client donné.
+Route::get('/show/{client_id}/{produit_id}', [FactureController::class, 'listFacture'])->name('getClientFacture');
+
+//liste de tous les factures qui sont au niveau de la table facture
+Route::get('getAllFacture', [FactureController::class, 'listAllFacture'])->name('getAllFacture');
+
 
 
 // Route::get('getListAccount', [FactureController::class, 'show'])->name('getListAccount'); 

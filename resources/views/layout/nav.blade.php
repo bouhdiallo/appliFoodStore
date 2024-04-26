@@ -34,9 +34,9 @@
                           <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lien séparé</font></font></a>
                         </div> --}}
                       </li>
-                      <li class="nav-item">
+                      {{-- <li class="nav-item">
                         <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facture</font></font></a>
-                      </li>
+                      </li> --}}
                       {{-- <li class="nav-item">
                         <a class="nav-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">À propos</font></font></a>
                       </li> --}}
@@ -63,20 +63,31 @@
                       </li>
 
                     </ul>
-                    <form class="d-flex">
+
+                     {{-- @if(auth('user-api')->check())
+                    <h1>{{ auth('user-api')->user()->name }}</h1>
+                      @endif --}}
+
+                    {{-- <form class="d-flex">
                       <input class="form-control me-sm-2" type="search" placeholder="Recherche">
                       <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Recherche</font></font></button>
-                    </form>
+                    </form> --}}
                   </div>
                 </div>
+
+                <span class="account-user-avatar">
+                  <img src="{{asset('import/assets/images/LogoAFS-2.png')}}" alt="user-image" width="250">
+              </span>
               </nav>
+
+
 
                      {{-- nav --}}
 
 
 
                           @yield('content')
-                          @yield('test')
+                          @yield('facture')
 
 
 
@@ -93,7 +104,7 @@
 
 
                          <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted">
+    <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
@@ -210,6 +221,9 @@
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
       American Food Store © 2024 Copyrights by Carree Marketing. Tous droits reservés
       {{-- <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a> --}}
+      <span class="account-user-avatar">
+        <img src="{{asset('import/assets/images/LogoAFS-2.png')}}" alt="user-image" width="250">
+    </span>
     </div>
     <!-- Copyright -->
   </footer>
@@ -218,16 +232,5 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
           {{-- footer --}}
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

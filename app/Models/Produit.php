@@ -16,6 +16,7 @@ class Produit extends Model
         'image',
         'description',
         'qte_en_stock',
+        'fournisseur_id'
     ];
 
     // public function factures()
@@ -29,7 +30,6 @@ class Produit extends Model
 
     public function fournisseur()
     {
-        return $this->belongsTo(Fournisseur::class);
+        return $this->belongsTo(Fournisseur::class, 'fournisseur_id');
     }
 }
-

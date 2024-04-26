@@ -26,8 +26,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-//  Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
-//  Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
+Route::get('caissiere', [ClientController::class, 'caissiereAccueil'])->name('caissiere');
+Route::get('user', [ClientController::class, 'userAccueil'])->name('user');
+Route::get('superAdmin', [ClientController::class, 'superAdminAccueil'])->name('superAdmin');
+
+
+
+ Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
+ Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
 //  Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
 // // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 // Route::post('userme',[Usercontroller::class,  'me']);

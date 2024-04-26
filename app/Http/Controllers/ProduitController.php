@@ -15,6 +15,18 @@ class ProduitController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+ //affiche le nombre de produit
+//  public function NbreProduit()
+//  {
+//      $nombreProduits = Produit::count();
+     
+//      // Passer la variable à la vue
+//      return view('votre_vue', ['nombreProduits' => $nombreProduits]);
+//  }
+
+
+
     public function index()
     {
         $fournisseur= Fournisseur::all();
@@ -44,6 +56,8 @@ class ProduitController extends Controller
             }
               $produit->description = $request->description;
               $produit->qte_en_stock = $request->qte_en_stock;
+              $produit->fournisseur_id = $request->fournisseur_id;
+
 
               $produit->save();
               return back()->with('status', 'le produit est ajouter avec success');
@@ -76,8 +90,9 @@ class ProduitController extends Controller
      */
     public function show()
     {
-       
-            //  $produits = Produit::paginate(3);
+             //attribuer le fournisseur correspondant
+            // $fournisseurs = Fournisseur::find($id);
+
              $produits = Produit::paginate(5);
 
             return view ('Produits.listerProduit',['produits' => $produits]);

@@ -14,6 +14,20 @@ class FournisseurController extends Controller
     /**
      * Display a listing of the resource.
      */
+ //metode pour afficher le nombre de fournisseur
+
+//  public function NbreSupplier()
+//  {
+//      $nombreFournisseurs = Fournisseur::count();
+     
+//      // Passer la variable à la vue
+//      return view('layout.acceuilUsers', ['nombreFournisseurs' => $nombreFournisseurs]);
+//  }
+
+
+
+
+
     public function index()
     {
          return view('Fournisseurs.ajoutFourni');
@@ -72,7 +86,7 @@ class FournisseurController extends Controller
 
              $fournisseurs = Fournisseur::paginate(5);
             // $categorie = Categorie::where('id', '=' ,$article->categorie_id)->first();
-            return view ('Fournisseurs.listerFourni',['fournisseurs' => $fournisseurs]);
+            return view ('Fournisseurs.listerFourni', ['fournisseurs' => $fournisseurs]); 
         
     }
 

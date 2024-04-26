@@ -1,5 +1,5 @@
-@extends('layout.nav')
-@section('content')
+@extends('layout.navAccount')
+@section('facture')
 
 {{-- <!DOCTYPE html>
 <html lang="en">

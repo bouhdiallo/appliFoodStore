@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Client;
+use App\Models\Produit;
+use App\Models\Fournisseur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateClientRequest;
@@ -15,9 +17,49 @@ class ClientController extends Controller
      * Display a listing of the resource.
      */
 
+     public function dashboard($id)
+     {
+        
+        $produits= Produit::paginate(5);
+        $fournisseur = Fournisseur::find($id);
+return view ('layout.acceuilUsers', ['produits' => $produits, 'fournisseurs' => $fournisseur]);
+ }
      
+ 
+     
+   
+
+    public function superAdminAccueil()
+    {
+        $produits= Produit::all();
+    return view ('layout.accueilSuperAdmin', ['produits'=> $produits]);
+   }
+
+
+
+    public function userAccueil()
+   {
+    $nombreClients = Client::count();
+    $nombreFournisseurs = Fournisseur::count();
+    $nombreProduits = Produit::count();
+
+    $produits = Produit::all();
+    return view ('layout.acceuilUsers', [
+    'produits'=>$produits, 
+    'nombreProduits' => $nombreProduits, 
+    'nombreFournisseurs' => $nombreFournisseurs,
+    'nombreClients' => $nombreClients
+     ]);
+   }
+
+
+
+
+
+
      public function index()
      {
+        
         return view('Clients.ajoutClient');
     }
 

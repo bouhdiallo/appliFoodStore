@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('description');
             $table->integer('qte_en_stock');
-            $table->foreignIdFor(Fournisseur::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(Fournisseur::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

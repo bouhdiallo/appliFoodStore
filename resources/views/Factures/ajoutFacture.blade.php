@@ -1,7 +1,10 @@
-@extends('layout.nav')
-@section('content')
+@extends('layout.navAccount')
+@section('facture')
 
 
+{{-- @if(auth('user-api')->check())
+    <h1>{{ auth('user-api')->user()->name }}</h1>
+@endif --}}
 
 
 <form action="{{route ('addAccount')}}"  method="POST">

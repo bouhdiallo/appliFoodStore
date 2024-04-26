@@ -3,62 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votre titre</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
-            margin: 0;
+        .container {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0; /* Couleur de fond de l'arrière-plan */
         }
 
-        form {
-            width: 50%; /* Largeur du formulaire */
+        .form-container {
+            border: 2px solid blue;
             padding: 20px;
-            background-color: blue; /* Fond bleu du formulaire */
-            border-radius: 10px; /* Coins arrondis */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: white;
-            color: blue;
-            cursor: pointer;
+            border-radius: 10px;
         }
     </style>
 </head>
+
+
 <body>
+    <div class="container">
+      @if (session('status'))
+<div class="alert alert-success">
 
-<form action="{{route ('connexion')}}" method="POST">
-    @csrf
-    <fieldset>
-        <div>
-            <label for="exampleInputEmail1" class="form-label mt-4">Adresse e-mail</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez l'e-mail">
-            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
-        </div>
-        <div>
-            <label for="exampleInputPassword1" class="form-label mt-4">Mot de passe</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" autocomplete="off">
-        </div>
-        <button type="submit" class="btn btn-primary">Se Connecter</button>
-    </fieldset>
-</form>
+  {{session('status')}}
+</div>
+@endif
 
+<ul>
+ @foreach ($errors->all() as $error)
+ <li class="alert alert-danger"> {{ $error }} </li>
+ @endforeach
+</ul>
+        <div class="form-container">
+            <form action="{{ route('connexion') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre mail">
+                  {{-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> --}}
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Entrez votre password">
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Se Connecter</button>
+              </form>
+        </div>
+    </div>
 </body>
 </html>

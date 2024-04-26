@@ -1,4 +1,4 @@
-@extends('layout.nav')
+{{-- @extends('layout.nav')
 @section('content')
 
 
@@ -26,7 +26,7 @@
         <label for="nom produit" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom Produit</font></font></label>
         <input type="nom_produit" name="nom_produit" class="form-control" id="nom_produit" aria-describedby="emailHelp" placeholder="Entrez le Nom du produit">
         {{-- <small id="emailHelp" class="form-text text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</font></font></small> --}}
-      </div>
+      {{-- </div>
       <div>
         <label for="prix" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Prix</font></font></label>
         <input type="prix" name="prix" class="form-control" id="prix" placeholder="prix" autocomplete="off">
@@ -35,9 +35,9 @@
       <div>
         <label for="image" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Images</font></font></label>
         <input type="file" name="image" class="form-control" id="image" placeholder="images" autocomplete="off">
-      </div>
+      </div> --}}
 
-      <div>
+      {{-- <div>
         <label for="description" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Description</font></font></label>
         <input type="text" name="description" class="form-control" id="decsription" placeholder="description" autocomplete="off">
       </div>
@@ -61,5 +61,84 @@
     </fieldset>
     <button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soumettre</font></font></button>
   </fieldset>
-  </form>
-@endsection()
+  </form> --}}
+{{-- @endsection() --}} 
+
+@extends('layout.nav')
+@section('content')
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    Formulaire d'ajout de produit
+                </div>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="alert alert-danger">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+
+                    <form action="{{ route('addProduct') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <fieldset>
+                            <legend>Légende</legend>
+                            <div class="mb-3">
+                                <label for="nom_produit" class="form-label">Nom Produit</label>
+                                <input type="text" name="nom_produit" class="form-control" id="nom_produit" placeholder="Entrez le Nom du produit">
+                            </div> 
+                            <div>
+                              <label for="prix" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Prix</font></font></label>
+                              <input type="prix" name="prix" class="form-control" id="prix" placeholder="prix" autocomplete="off">
+                            </div>
+                      
+                            <div>
+                              <label for="image" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Images</font></font></label>
+                              <input type="file" name="image" class="form-control" id="image" placeholder="images" autocomplete="off">
+                            </div>
+                      
+                            <div>
+                              <label for="description" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Description</font></font></label>
+                              <input type="text" name="description" class="form-control" id="decsription" placeholder="description" autocomplete="off">
+                            </div>
+                      
+                            {{-- <div>
+                              <label for="quantite" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quantité en Stock</font></font></label>
+                              <input type="number" name="qte_en_stock" class="form-control" id="adress" placeholder="quantite" autocomplete="off">
+                            </div> --}}
+
+                            <div>
+                              <label for="quantite" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quantité en Stock</font></font></label>
+                              <input type="" name="qte_en_stock" class="form-control" id="adress" placeholder="quantite" autocomplete="off">
+                            </div>
+                      
+                      
+                            <div class="form-group">
+                              <label for="exampleSelect1" class="form-label mt-4">Example select</label>
+                              <select class="form-select" name="fournisseur_id" id="exampleSelect1">
+                                  @foreach($fournisseurs as $fournisseur)
+                          
+                                <option value="{{$fournisseur->id}}">{{$fournisseur->nom}}</option>
+                                @endforeach
+                               
+                              </select>
+                            </div>
+                            <!-- Les autres champs du formulaire -->
+                            <button type="submit" class="btn btn-primary">Soumettre</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

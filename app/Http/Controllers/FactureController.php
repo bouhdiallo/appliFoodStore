@@ -19,11 +19,44 @@ class FactureController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+       //fonction pour afficher la vue de la caissiere
+     public function caissiereAccueil()
+     {
+       return view ('layout.acceuilCaisse');
+    }
+
+
     public function index()
     {
         $client = Client::all();
        return view('Factures.ajoutFacture', ['clients'=> $client]);
     } 
+
+    // public function listFacture($id)
+    // {
+    //     $produit = FactureProduit::get($id);
+    //    return view('Factures.listerFacture', [ 'produit'=> $produit]);
+    // } 
+
+
+     //metode pour recuperer la facture d'un client
+    public function listFacture($id)
+    {
+        $factures = FactureProduit::get($id);
+        // dd($factures);
+
+        return view('Factures.listerFacture', ['factures'=>$factures]);
+    }
+
+    //metode pour recuperer tous les factures
+    public function listAllFacture()
+    {
+        $factures = Facture::all();
+        // dd($factures);
+        return view('Factures.listerFacture', ['factures'=>$factures]);
+    }
+   
 
     /**
      * Show the form for creating a new resource.
@@ -100,14 +133,7 @@ class FactureController extends Controller
     // }
 
 
-    public function show()
-    {
-        $factures = Facture::all();
-        // dd($factures);
-
-        return view('Factures.listerFacture', ['factures'=>$factures]);
-    }
-   
+  
     
    
 
