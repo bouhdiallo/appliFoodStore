@@ -115,7 +115,7 @@ class ProduitController extends Controller
     public function update($id) 
      {
         $produit =  Produit::findOrFail($id);
-        $fournisseurs = Fournisseur::all(); // Assurez-vous d'obtenir les fournisseurs ici
+        $fournisseurs = Fournisseur::all(); //
         return view('Produits.modifProduit', ['produit'=>$produit, 'fournisseurs' =>$fournisseurs]);
      }
 

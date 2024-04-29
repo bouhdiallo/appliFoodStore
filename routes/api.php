@@ -34,6 +34,17 @@ Route::get('superAdmin', [ClientController::class, 'superAdminAccueil'])->name('
 
  Route::post('inscription', [UserController::class, 'inscription'])->name('inscription');
  Route::post('connexion', [UserController::class, 'connexion'])->name('connexion');
+
+
+
+
+
+ Route::get('factures/create', [FactureController::class, 'creating'])->name('factures/create');
+Route::post('factures/stor', [FactureController::class, 'create'])->name('factures/stor');
+
+
+Route::get('getAllFacture', [FactureController::class, 'listAllFacture'])->name('getAllFacture');
+
 //  Route::post('deconnexion', [Usercontroller::class, 'deconnexion'])->name('deconnexion');
 // // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 // Route::post('userme',[Usercontroller::class,  'me']);

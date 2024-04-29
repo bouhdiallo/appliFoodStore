@@ -20,22 +20,11 @@ class Facture extends Model
         return $this->belongsTo(Client::class);
     }
 
-    // public function produits()
-    // {
-    //     return $this->belongsToMany(Produit::class);
-    // }
-
-
     public function produits()
     {
         return $this->belongsToMany(Produit::class, 'facture_produit');
     }
     
-
-    // public function client()
-    // {
-    //     return $this->belongsTo(Client::class);
-    // }
 }
 
 

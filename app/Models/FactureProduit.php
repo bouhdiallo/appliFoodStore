@@ -12,18 +12,4 @@ class FactureProduit extends Model
         'facture_id',
         'produit_id',
     ];
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
-
-    // Vous pouvez ajouter d'autres relations ou méthodes ici si nécessaire
-    public function produits()
-    {
-        return $this->belongsToMany(Produit::class);
-    }
-     public function factures()
-    {
-        return $this->belongsToMany(Facture::class);
-    }
 }

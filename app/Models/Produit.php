@@ -18,11 +18,6 @@ class Produit extends Model
         'qte_en_stock',
         'fournisseur_id'
     ];
-
-    // public function factures()
-    // {
-    //     return $this->belongsToMany(Facture::class, 'produit_id');
-    // }
     public function factures()
     {
         return $this->belongsToMany(Facture::class, 'facture_produit' );

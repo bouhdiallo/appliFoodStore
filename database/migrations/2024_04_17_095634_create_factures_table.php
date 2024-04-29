@@ -16,9 +16,7 @@ return new class extends Migration
         Schema::create('factures', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->float('montant');
             $table->foreignIdFor(Client::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignIdFor(Produit::class)->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

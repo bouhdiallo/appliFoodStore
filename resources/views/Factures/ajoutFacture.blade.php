@@ -1,46 +1,41 @@
 @extends('layout.navAccount')
 @section('facture')
 
-
-{{-- @if(auth('user-api')->check())
-    <h1>{{ auth('user-api')->user()->name }}</h1>
-@endif --}}
-
-
-<form action="{{route ('addAccount')}}"  method="POST">
-
-  
+<form action="{{ route('addAccount') }}" method="POST">
     @csrf
     <fieldset>
-      <legend><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Légende</font></font></legend>
-     
-     
-      <div>
-        <label for="contact" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Date</font></font></label>
-        <input type="date" name="date" class="form-control" id="contact" placeholder="contact" autocomplete="off">
-      </div>
+        <legend>Légende</legend>
 
-      <div>
-        <label for="adress" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Montant</font></font></label>
-        <input type="montant" name="montant" class="form-control" id="adress" placeholder="adress" autocomplete="off">
-      </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" name="date" class="form-control" id="date" placeholder="Date" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="client_id">Client:</label>
+            <select class="form-select" name="client_id" id="client_id">
+                @foreach($clients as $client)
+                <option value="{{ $client->id }}">{{ $client->nom_client }}</option>
+                @endforeach
+            </select>
+        </div>
 
-
-
-      <div class="form-group">
-        <label for="exampleSelect1" class="form-label mt-4">Example select</label>
-        <select class="form-select" name="client_id" id="exampleSelect1">
-            @foreach($clients as $client)
-    
-          <option value="{{$client->id}}">{{$client->nom_client}}</option>
-          @endforeach
-         
-        </select>
-      </div>
-
+        <div class="form-group">
+            <label for="produits">Produits:</label><br>
+            @foreach($produits as $produit)
+            <div>
+                <input type="checkbox" id="produit{{ $produit->id }}" name="produits[]" value="{{ $produit->id }}">
+                <label for="produit{{ $produit->id }}">{{ $produit->nom_produit }}</label><br>
+                <!-- Ajouter un champ de quantité pour chaque produit -->
+                <label for="quantite{{ $produit->id }}">Quantité:</label>
+                <input type="number" name="quantite[{{ $produit->id }}]" id="quantite{{ $produit->id }}" value="1">
+                <!-- Afficher le prix du produit -->
+                <label for="prix{{ $produit->id }}">Prix: {{ $produit->prix }}</label><br>
+            </div>
+            @endforeach
+        </div>
 
     </fieldset>
-    <button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soumettre</font></font></button>
-  </fieldset>
-  </form>
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+</form>
+
 @endsection()

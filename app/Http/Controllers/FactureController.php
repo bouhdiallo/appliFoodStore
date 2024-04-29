@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Client;
@@ -19,6 +20,34 @@ class FactureController extends Controller
     /**
      * Display a listing of the resource.
      */
+   
+public function creating()
+{
+    $produits = Produit::all();
+    return new JsonResponse(['produits' => $produits]);
+}
+
+public function storing(Request $request)
+{
+    $request->validate([
+        'date' => 'required|date',
+        'montant' => 'required|numeric',
+        'client_id' => 'required|exists:clients,id',
+        'produits' => 'required|array',
+        'produits.*' => 'exists:produits,id',
+    ]);
+
+    $facture = new Facture();
+    $facture->date = $request->date;
+    $facture->montant = $request->montant;
+    $facture->client_id = $request->client_id;
+    $facture->save();
+
+    $facture->produits()->attach($request->produits);
+
+    return response()->json(['message' => 'Facture ajoutée avec succès!', 'facture' => $facture], 201);
+}
+
 
        //fonction pour afficher la vue de la caissiere
      public function caissiereAccueil()
@@ -29,20 +58,16 @@ class FactureController extends Controller
 
     public function index()
     {
+
+        $produit = Produit::get();
         $client = Client::all();
-       return view('Factures.ajoutFacture', ['clients'=> $client]);
+       return view('Factures.ajoutFacture', ['clients'=> $client, 'produits'=> $produit]);
     } 
-
-    // public function listFacture($id)
-    // {
-    //     $produit = FactureProduit::get($id);
-    //    return view('Factures.listerFacture', [ 'produit'=> $produit]);
-    // } 
-
 
      //metode pour recuperer la facture d'un client
     public function listFacture($id)
     {
+        
         $factures = FactureProduit::get($id);
         // dd($factures);
 
@@ -53,7 +78,6 @@ class FactureController extends Controller
     public function listAllFacture()
     {
         $factures = Facture::all();
-        // dd($factures);
         return view('Factures.listerFacture', ['factures'=>$factures]);
     }
    
@@ -61,40 +85,50 @@ class FactureController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(CreateFactureRequest $request)
+    public function create(Request $request)
     {
-        // try {
-        //     if (Auth::guard('user-api')->check()) {
-                $facture = new Facture();
-                $facture->date = $request->date;
-                $facture->montant = $request->montant;
-                $facture->client_id = $request->client_id;
-                
-                $facture->save();
+        $request->validate([
+            'date' => 'required|date',
+            'client_id' => 'required|exists:clients,id',
+            'produits' => 'required|array',
+            'produits.*' => 'exists:produits,id',
+            'quantite' => 'required|array',
+            'quantite.*' => 'numeric|min:1', // Validation sur les quantités
+        ]);
     
-                // Associer les produits à la facture en utilisant la méthode sync
+        // Création de la nouvelle facture
+        $facture = new Facture();
+        $facture->date = $request->date;
+        $facture->client_id = $request->client_id;
+        $facture->save();
+        // Calcul du montant total en fonction des produits sélectionnés et de leur quantité
+        $montantTotal = 0;
+        foreach ($request->produits as $index => $produitId) {
+            if (isset($request->quantite[$produitId])) {
+                $quantite = $request->quantite[$produitId];
+                $produit = Produit::find($produitId);
+                if ($produit) {
+                    $sousTotal = $produit->prix * $quantite;
+                    $montantTotal += $sousTotal;
+                    // Attache le produit à la facture avec la quantité dans la table pivot
+                    $facture->produits()->attach($produitId, ['quantite' => $quantite]);
+                }
+            }
+        }
+    
+        $clients = Client::all();
+        $produits = Produit::all();
 
-                $facture->produits()->sync($request->produits);
-
-                // $facture->produits()->sync($request->produits);
-
-                return back();
-                // dd($request->produits);
-        //         return response()->json([
-        //             'status_code' => 200,
-        //             'status_message' => 'La facture a été ajoutée avec succès',
-        //             'data' => $facture
-        //         ]);
-        //     } else {
-        //         return response()->json([
-        //             'status_code' => 401,
-        //             'status_message' => 'Vous devez être authentifié pour créer une facture'
-        //         ]);
-        //     }
-        // } catch (Exception $e) {
-        //     return response()->json(['status_code' => 500, 'error' => $e->getMessage()]);
-        // }
+        // Retourner la vue avec les données de la facture et le montant total
+        return view('Factures.ajoutFacture', [
+            'facture' => $facture,
+            'montantTotal' => $montantTotal,
+            'clients' => $clients,
+            'produits' =>  $produits
+        ]);
     }
+    
+    
     
 
     /**
@@ -108,35 +142,6 @@ class FactureController extends Controller
     /**
      * Display the specified resource.
      */
-
-     // les factures
-    // public function show($client_id, $produit_id)
-    // {
-      
-
-    //     $factures = FactureProduit::with('produits', 'facture');
-            // Récupérer le client correspondant à l'ID    
-            // $client = Client::findOrFail($client_id);
-
-            // Récupérer le produit correspondant à l'ID
-            // $produit= Produit::findOrFail($produit_id);
-        
-            // Récupérer les factures associées au client et au produit
-            // $facturesClient = $client->factures()->get();
-
-            // $facturesProduit = $produit->factures()->get();
-
-            // Combiner les collections de factures
-            // $factures = $facturesClient->merge($facturesProduit);
-        
-    //         return view('Factures.listerFacture', ['factures' => $factures]);   
-    // }
-
-
-  
-    
-   
-
 
     /**
      * Show the form for editing the specified resource.
@@ -244,48 +249,4 @@ class FactureController extends Controller
     // Envoyer le PDF au client (par exemple, comme téléchargement)
     return response()->download(public_path('invoices/' . $filename), $filename);
 }
- 
-// public function printInvoice($id)
-// {
-//     try {
-//         // Récupérer la facture avec les détails du client et les produits associés
-//         $facture = Facture::with(['client', 'produits'])->findOrFail($id);
-//         dd($facture);
-//         // Créer le contenu HTML du PDF
-//         $html = '<h1>Facture</h1>';
-//         $html .= '<p>Nom du client: ' . $facture->client->nom_client . '</p>';
-//         $html .= '<p>Contact du client: ' . $facture->client->contact . '</p>';
-//         $html .= '<p>Adress du client: ' . $facture->client->adress . '</p>';
-//         $html .= '<p>Date de la facture: ' . $facture->date . '</p>';
-//         $html .= '<h2>Produits:</h2>';
-//         $html .= '<ul>';
-//         dd($facture->produits);
-//         foreach ($facture->produits as $produit) {
-
-//             $html .= '<li>' . $produit->nom_produit . ' - ' . $produit->prix . '</li>';
-//         }
-//         $html .= '</ul>';
-
-//         // Instancier Dompdf
-//         $dompdf = new Dompdf();
-
-//         // Charger le contenu HTML dans Dompdf
-//         $dompdf->loadHtml($html);
-
-//         // Rendre le PDF
-//         $dompdf->render();
-
-//         // Récupérer le contenu du PDF
-//         $pdfContent = $dompdf->output();
-
-//         // Retourner le PDF en réponse
-//         return response($pdfContent)
-//             ->header('Content-Type', 'application/pdf')
-//             ->header('Content-Disposition', 'inline; filename="facture_' . $id . '.pdf"');
-
-//     } catch (Exception $e) {
-//         // Gérer les erreurs, par exemple si la facture n'est pas trouvée
-//         return response()->json(['status_code' => 404, 'error' => 'Facture non trouvée']);
-//     }
-// }
 }

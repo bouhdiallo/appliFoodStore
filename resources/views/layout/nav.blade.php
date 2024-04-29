@@ -64,6 +64,30 @@
 
                     </ul>
 
+
+
+
+
+
+
+{{-- 
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ route ('user')}}" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dashboard</font></font></a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/formCustomer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter Client</font></font></a>
+                        <a class="dropdown-item" href="/getListCustomer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">liste des Clients</font></font></a> --}}
+                        {{-- <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelque chose d'autre ici</font></font></a> --}}
+                        {{-- <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lien séparé</font></font></a>
+                      </div> --}}
+                    {{-- </li> --}}
+
+
+                     {{-- <a href="{{ route ('user')}}" class="dropdown-item">
+                                    <i class="ri-lock-password-line fs-18 align-middle me-1"></i>
+                                    <span>Dashboard</span>
+                                </a> --}}
+
                      {{-- @if(auth('user-api')->check())
                     <h1>{{ auth('user-api')->user()->name }}</h1>
                       @endif --}}

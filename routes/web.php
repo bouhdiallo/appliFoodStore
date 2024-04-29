@@ -45,14 +45,6 @@ Route::post('deconnect', [Usercontroller::class, 'deconnexion'])->name('deconnec
 // Route::post('user_list', [Usercontroller::class, 'index'])->name('user_list');
 Route::post('userme',[Usercontroller::class,  'me']);
 
-// route pour la gestion des clients
-// Route::get('abc', [ClientController::class, 'index'])->name('abc');
-// Route::post('addCustommer', [ClientController::class, 'create'])->name('addCustommer');
-// Route::put('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
-// Route::delete('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
-// Route::get('getCustomer', [ClientController::class, 'index'])->name('getCustomer');
-
-
 // route pour la gestion des fournisseurs
 Route::get('formSupplier', [FournisseurController::class, 'index'])->name('formSupplier');
 Route::post('addSupplier', [FournisseurController::class, 'create'])->name('addSupplier');
@@ -60,11 +52,8 @@ Route::post('addSupplier', [FournisseurController::class, 'create'])->name('addS
 Route::get('updateSupplier/{id}', [FournisseurController::class, 'update'])->name('updateSupplier');
 Route::post('updateSupplierProcess/{id}', [FournisseurController::class, 'updateProcess'])->name('updateSupplierProcess');
 
-
 Route::get('deleteSupplier/{id}', [FournisseurController::class, 'delete'])->name('deleteSupplier');
 Route::get('getListSupplier', [FournisseurController::class, 'show'])->name('getListSupplier');
-
-
 
 // route pour la gestion des clients
 Route::get('formCustomer', [ClientController::class, 'index'])->name('formCustomer');
@@ -73,10 +62,14 @@ Route::post('addCustommer', [ClientController::class, 'create'])->name('addCusto
 Route::get('updateCustomer/{id}', [ClientController::class, 'update'])->name('updateCustomer');
 Route::post('updateCustomerProcess/{id}', [ClientController::class, 'updateProcess'])->name('updateCustomerProcess');
 
-
 Route::get('deleteCustomer/{id}', [ClientController::class, 'delete'])->name('deleteCustomer');
 
 Route::get('getListCustomer', [ClientController::class, 'show'])->name('getListCustomer');
+
+//************************************************************************************************************************
+
+// Route::get('factures/create', [FactureController::class, 'creating'])->name('factures.create');
+// Route::post('factures', [FactureController::class, 'storing'])->name('factures.store');
 
 // route pour la gestion des Factures
 Route::get('formAccount', [FactureController::class, 'index'])->name('formAccount');
@@ -85,23 +78,15 @@ Route::post('addAccount', [FactureController::class, 'create'])->name('addAccoun
 Route::put('updateAccount/{id}', [FactureController::class, 'update'])->name('updateAccount');
 Route::delete('deleteAccount/{id}', [FactureController::class, 'delete'])->name('deleteAccount');
 
-// Route::get('getClientFacture/{client_id}', [FactureController::class, 'show'])->name('getClientFacture');
-
 // Appel de la fonction show() avec les deux arguments pour recuper la liste des factures pour un client donné.
 Route::get('/show/{client_id}/{produit_id}', [FactureController::class, 'listFacture'])->name('getClientFacture');
 
 //liste de tous les factures qui sont au niveau de la table facture
 Route::get('getAllFacture', [FactureController::class, 'listAllFacture'])->name('getAllFacture');
-
-
-
-// Route::get('getListAccount', [FactureController::class, 'show'])->name('getListAccount'); 
 // impression de la facture
 Route::get('/invoice/{id}', [FactureController::class, 'printInvoice'])->name('invoices.print');
 
-
-// Route pour afficher la facture au format PDF
-// Route::get('/invoice/{id}', [InvoiceController::class, 'showInvoice'])->name('invoice.show');
+//*********************************************************************************************************************
 
 // route pour la gestion des Produit
 Route::get('formProduct', [ProduitController::class, 'index'])->name('formProduct');

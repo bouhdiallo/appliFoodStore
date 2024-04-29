@@ -143,7 +143,7 @@
                                     <img src="{{asset('import/assets/images/users/avatar-1.jpg')}}" alt="user-image" width="32" class="rounded-circle">
                                 </span>
                                 <span class="d-lg-block d-none">
-                                    <h5 class="my-0 fw-normal">Mon Nom <i
+                                    <h5 class="my-0 fw-normal">Admin<i
                                             class="ri-arrow-down-s-line d-none d-sm-inline-block align-middle"></i></h5>
                                 </span>
                             </a>
@@ -154,33 +154,33 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="pages-profile.html" class="dropdown-item">
+                                <a href="{{ route('formProduct')}}" class="dropdown-item">
                                     <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
-                                    <span>My Account</span>
+                                    <span>PRODUIT</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="pages-profile.html" class="dropdown-item">
+                                <a href="{{ route('formCustomer')}}" class="dropdown-item">
                                     <i class="ri-settings-4-line fs-18 align-middle me-1"></i>
-                                    <span>Settings</span>
+                                    <span>CLIENT</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="pages-faq.html" class="dropdown-item">
+                                <a href="{{ route('formSupplier')}}" class="dropdown-item">
                                     <i class="ri-customer-service-2-line fs-18 align-middle me-1"></i>
-                                    <span>Support</span>
+                                    <span>FOURNISSEURS</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="auth-lock-screen.html" class="dropdown-item">
+                                {{-- <a href="auth-lock-screen.html" class="dropdown-item">
                                     <i class="ri-lock-password-line fs-18 align-middle me-1"></i>
                                     <span>Lock Screen</span>
-                                </a>
+                                </a> --}}
 
                                 <!-- item-->
-                                <a href="auth-logout-2.html" class="dropdown-item">
+                                <a href="{{ route('formConnect')}} class="dropdown-item">
                                     <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
-                                    <span>Logout</span>
+                                    <span>Deconnexion</span>
                                 </a>
                             </div>
                         </li>
@@ -193,14 +193,19 @@
             <!-- ========== Left Sidebar Start ========== -->
             <div class="leftside-menu">
 
-                <!-- Brand Logo Light -->
-                <a href="index.html" class="logo logo-light">
-                    <span class="logo-lg">
+                <!-- Brand Logo Light -->      
+                <a href="#" class="logo logo-light">
+                    {{-- <span class="logo-lg">
                         <img src="{{asset('import/assets/images/logo.png')}}" alt="logo">
+                    </span> --}}
+
+                    <span class="account-user-avatar">
+                        <img src="{{ asset('import/assets/images/LogoAFS-2.png') }}" alt="user-image" width="150">
                     </span>
-                    <span class="logo-sm">
+                    
+                    {{-- <span class="logo-sm">
                         <img src="{{asset('import/assets/images/logo-sm.png')}}" alt="small logo">
-                    </span>
+                    </span> --}}
                 </a>
 
                 <!-- Brand Logo Dark -->
@@ -218,7 +223,7 @@
                     <!--- Sidemenu -->
                     <ul class="side-nav">
 
-                        <li class="side-nav-title">Main</li>
+                        {{-- <li class="side-nav-title">Main</li> --}}
 
                         <li class="side-nav-item">
                             <a href="index.html" class="side-nav-link">
@@ -227,6 +232,7 @@
                                 <span> Dashboard </span>
                             </a>
                         </li>
+
 
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
@@ -254,7 +260,7 @@
                             <a data-bs-toggle="collapse" href="#sidebarLayouts" aria-expanded="false" aria-controls="sidebarLayouts" class="side-nav-link">
                                 <i class="ri-layout-line"></i>
                                 {{-- <span class="badge bg-warning float-end">New</span> --}}
-                                <span> Clients </span>
+                                <span>CLIENT</span>
                                 
                             </a>
                             <div class="collapse" id="sidebarLayouts">
@@ -263,7 +269,7 @@
                                         <a href="{{ route ('formCustomer')}}" target="_blank">Ajouter Client</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route ('getListCustomer')}}" target="_blank">Liste des Clients</a>
+                                        <a href="{{ route ('getListCustomer')}}" target="_blank">Liste Des Clients</a>
                                     </li>
                                   
                                 </ul>
@@ -274,7 +280,7 @@
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarBaseUI" aria-expanded="false" aria-controls="sidebarBaseUI" class="side-nav-link">
                                 <i class="ri-briefcase-line"></i>
-                                <span> Fournisseurs </span>
+                                <span> FOURNISSEUR </span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="sidebarBaseUI">
@@ -300,7 +306,7 @@
                             <div class="collapse" id="sidebarPagesAuth">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="{{route('formConnect')}}">je me deconnecte</a>
+                                        <a href="{{route('formConnect')}}">Je me deconnecte</a>
                                     </li>
                                     {{-- <li>
                                         <a href="auth-register.html">Register</a>
